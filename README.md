@@ -2,7 +2,7 @@
 
 ## Group Work Git Process
 
-- Create your own branch from `dev` branch: `git checkout -b initials_cleaning_eda dev`
+- Create your own branch from `dev` branch: `git checkout -b initials-cleaning-eda`
 - Your `code` should go to inside folders of `src` folder
 - Your `jupyter` file should be named as foldername. For example: if folder `02_processing` than file name should be `processing.ipynb`
 - ![pull request step 1](./public/images/pull-request-step-1.PNG)
