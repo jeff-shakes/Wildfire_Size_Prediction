@@ -1,27 +1,84 @@
-# Wild Fire Analysis
+# Project 1: Reddit: Web API & NLP
 
-## Group Work Git Process
 
-- Create your own branch from `dev` branch: `git checkout -b initials-cleaning-eda`
-- Your `code` should go to inside folders of `src` folder
-- Your `jupyter` file should be named as foldername. For example: if folder `02_processing` than file name should be `processing.ipynb`
-- ![pull request step 1](./public/images/pull-request-step-1.PNG)
-  
-  Click on `Pull requests` tab
+## Table of Contents
+- [Project 1: Reddit: Web API \& NLP](#project-1-reddit-web-api--nlp)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Problem-Statement](#problem-statement)
+  - [Datasets](#datasets)
+  - [Analysis Summary](#analysis-summary)
+    - [Overall Data Analysis](#overall-data-analysis)
+  - [Conclusion \& Recommendation](#conclusion--recommendation)
 
-- ![pull request step 1](./public/images/pull-request-step-2.PNG)
+## Overview
 
-  Click on `New pull request`
 
-- ![pull request step 1](./public/images/pull-request-step-3.PNG)
+Data Analysis has been conducted using following libraries:
+  - `pandas`
+  - `numpy`
+  - `seaborn`
+  - `matplotlib`
+  - `skylearn`
+    - `BaggingClassifier`
+    - `RandomForestClassifier`
+    - `ExtraTreesClassifier`
+    - `GradientBoostingClassifier`
+    - `AdaBoostClassifier`
+    - `VotingClassifier`
+    - `StackingClassifier`
+    - `confusion_matrix`
+    - `ConfusionMatrixDisplay`
+    - `classification_report`
+    - `RocCurveDisplay`
+    - `accuracy_score`
+    - `Pipelin`
+    - `train_test_split`
+    - `GridSearchCV`
+    - `cross_val_score`
+    - `cross_val_predict`
+    - `make_column_transformer`
+    - `StandardScaler`
+    - `MultinomialNB`
+    - `LogisticRegression`
+    - `KNeighborsClassifier`
+    - `CountVectorizer` 
+    - `TfidfVectorizer`
+  - `nltk`
+    - `SentimentIntensityAnalyzer`
+    - `PorterStemmer`
+  - `meteostat`
+  - `POWER-api`
 
-  Pick `your branch` that you want to merge and target branch `dev` and click on `Create pull request`
 
-- ![pull request step 1](./public/images/pull-request-step-4.PNG)
+## Problem-Statement
 
-  Add comment of your work and click on `Create pull request`
 
-- ![pull request step 1](./public/images/pull-request-step-5.PNG)
+## Datasets
+| Features     | Data Types | Description                   |
+| :----------- | :--------- | :---------------------------- |
+| selftext     | object     | Post body text                |
+| title        | object     | Post title                    |
+| score        | int64      | User upvote to downvote ratio |
+| domain       | object     | Subreddit domain              |
+| id           | object     | User unique identification    |
+| author       | object     | Username                      |
+| num_comments | int64      | Number of comments            |
+| url          | object     | Url used on a post            |
+| created_utc  | int64      | Post posted timestamp         |
+| subreddit    | int64      | Subreddit name                |
 
-  Click on `Assignees` and pick the user to review your work. 
-  <br/>:warning: **Do not merge your work yourself**: Be very careful here! Also your branch will be automatically deleted!
+
+---
+
+## Analysis Summary
+
+### Overall Data Analysis
+
+![Price Distribution](./presentation/charts/models_performance.png)
+Model `performance` comparison to determine which model should be picked for modeling
+
+
+
+----
+## Conclusion & Recommendation
