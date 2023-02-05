@@ -1,48 +1,47 @@
-import os
-
-from dotenv import load_dotenv
-
-load_dotenv()
-
-
 class Config:
+    # All fire
+    wildfire_all_prefix = "wildfire_all_"
+
+    # Big fire
+    wildfire_filtered_prefix = "wildfire_filtered_"
+
+    # Meterology
+    meteorology_prefix = "meteorology_"
     # Raw Fire All Section
-    def get_raw_fire_all_path(file_name):
+    def get_raw_fire_all_path(this, file_name):
         raw_path = "../../data/raw/"
-        return raw_path + os.getenv("wildfire_all_prefix") + file_name + ".csv"
+        return raw_path + this.wildfire_all_prefix + file_name + ".csv"
 
-    def get_cleaned_fire_all_path(file_name):
+    def get_cleaned_fire_all_path(this, file_name):
         cleaned_path = "../../data/cleaned/"
-        return cleaned_path + os.getenv("wildfire_all_prefix") + file_name + ".csv"
+        return cleaned_path + this.wildfire_all_prefix + file_name + ".csv"
 
-    def get_processed_fire_all_path(file_name):
+    def get_processed_fire_all_path(this, file_name):
         processed_path = "../../data/processed/"
-        return processed_path + os.getenv("wildfire_all_prefix") + file_name + ".csv"
+        return processed_path + this.wildfire_all_prefix + file_name + ".csv"
 
     # Raw Fire Filtered Section
-    def get_raw_fire_filtered_path(file_name):
+    def get_raw_fire_filtered_path(this, file_name):
         raw_path = "../../data/raw/"
-        return raw_path + os.getenv("wildfire_filtered_prefix") + file_name + ".csv"
+        return raw_path + this.wildfire_filtered_prefix + file_name + ".csv"
 
-    def get_cleaned_fire_filtered_path(file_name):
+    def get_cleaned_fire_filtered_path(this, file_name):
         cleaned_path = "../../data/cleaned/"
-        return cleaned_path + os.getenv("wildfire_filtered_prefix") + file_name + ".csv"
+        return cleaned_path + this.wildfire_filtered_prefix + file_name + ".csv"
 
-    def get_processed_fire_filtered_path(file_name):
+    def get_processed_fire_filtered_path(this, file_name):
         processed_path = "../../data/processed/"
-        return (
-            processed_path + os.getenv("wildfire_filtered_prefix") + file_name + ".csv"
-        )
+        return processed_path + this.wildfire_filtered_prefix + file_name + ".csv"
 
     # Raw Fire Filtered Section
-    def get_raw_meteorology_path(file_name):
+    def get_raw_meteorology_path(this, file_name):
         raw_path = "../../data/raw/"
-        return raw_path + os.getenv("meteorology_prefix") + file_name + ".csv"
+        return raw_path + this.meteorology_prefix + file_name + ".csv"
 
-    def get_cleaned_meteorology_path(file_name):
+    def get_cleaned_meteorology_path(this, file_name):
         cleaned_path = "../../data/cleaned/"
-        return cleaned_path + os.getenv("meteorology_prefix") + file_name + ".csv"
+        return cleaned_path + this.meteorology_prefix + file_name + ".csv"
 
-    def get_processed_meteorology_path(file_name):
+    def get_processed_meteorology_path(this, file_name):
         processed_path = "../../data/processed/"
-        return processed_path + os.getenv("meteorology_prefix") + file_name + ".csv"
+        return processed_path + this.meteorology_prefix + file_name + ".csv"
