@@ -1,60 +1,84 @@
-# Project 4: Wild Fire Analysis
-
+# Project 4: Wildfire Acreage Prediction
 
 ## Table of Contents
-- [Project 4: Wild Fire Analysis](#project-4-wild-fire-analysis)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Problem-Statement](#problem-statement)
-  - [Datasets](#datasets)
-  - [Analysis Summary](#analysis-summary)
-    - [Overall Data Analysis](#overall-data-analysis)
-  - [Conclusion \& Recommendation](#conclusion--recommendation)
+* 00_collect_data
+  * landcover_data_collection
+  * meteorology_data_collection_api_meteostat
+  * meteorology_data_collection_api_POWER
+  * wildfire_data_collection
+* 01_cleaning_eda
+  * 01.1_wildfires_cleaning
+  * 01.2_meteorology_cleaning
+  * 01.3_basic_EDA
+  * 01.4_extended_EDA
+* 02_processing
+  * 02.1_meteorology_historical_preprocessing
+  * 02.2_merging_data
+* 03_modeling
+  * ...
 
-## Overview
+---
+## Problem Statement
+Using only the reported initial location of a wildfire, can we use the historical and present meteorological data and land cover zoning data to predict the total acres burned? What variability of predicted wildfire acreage could be explained by only meteorological data and vegetation type?
 
-
-Data Analysis has been conducted using following libraries:
+---
+## Python Libraries
+Following python libraried were used during the project:
   - `pandas`
   - `numpy`
   - `seaborn`
   - `matplotlib`
-  - `skylearn`
-    - `BaggingClassifier`
-    - `RandomForestClassifier`
-    - `ExtraTreesClassifier`
-    - `GradientBoostingClassifier`
-    - `AdaBoostClassifier`
-    - `VotingClassifier`
-    - `StackingClassifier`
-    - `confusion_matrix`
-    - `ConfusionMatrixDisplay`
-    - `classification_report`
-    - `RocCurveDisplay`
-    - `accuracy_score`
-    - `Pipelin`
-    - `train_test_split`
-    - `GridSearchCV`
-    - `cross_val_score`
-    - `cross_val_predict`
-    - `make_column_transformer`
-    - `StandardScaler`
-    - `MultinomialNB`
-    - `LogisticRegression`
-    - `KNeighborsClassifier`
-    - `CountVectorizer` 
-    - `TfidfVectorizer`
+  - `sklearn`
   - `nltk`
-    - `SentimentIntensityAnalyzer`
-    - `PorterStemmer`
   - `meteostat`
   - `POWER-api`
-
-
-## Problem-Statement
-Using only the reported initial location of a wildfire, can we use the historical and present weather and land data to predict the total acres burned? 
-
+  - `mpl_toolkits.basemap`
+---
 ## Datasets
+During the project, we collected the following data to be used as predictors:
+1. Wildfires dataset covering south-western portion of the US
+1. Current meteorological data, including atmospheric measurements like temperature, wind, air humidity, soil humidity, UV index etc.
+2. Historical precipitation for 6 months preceding the fire start date
+3. Land cover data, describing what type of vegetation is the dominant in the start location of the fire
+<div style="width:50px; height:50px"></div>
+<img src='public/visuals/wildfire_all_locations.png' alt='test' width='50%' height='50% title = 'test'>
+
+---
+## Data Collection
+ The biggest part of data collection was getting meteorological data. It was acquired using [POWER API](https://power.larc.nasa.gov/docs/methodology/data/sources/), which utilizes space-based data from the meteo satellites. We've also tried using Meteostat API that is using ground-based meteo data, but it's coverage wasn't good enough for our goals.  
+ Wildfires data came from [WFIGS Wildland Fire Locations](https://data-nifc.opendata.arcgis.com/datasets/nifc::wfigs-wildland-fire-locations-full-history/about) which are reported by IRWIN wildland fires reporting and management system.  
+Land Cover data was collected from [GAP/LANDFIRE National Terrestrial Ecosystems](https://www.usgs.gov/programs/gap-analysis-project/science/land-cover-data-overview) dataset.
+
+---
+## Data Cleaning
+We did some extensive cleaning of wildfire entries, by removing 'tiny' fires which are less than 1 acre and took less than one day to contain. 
+In general data cleaning of weather and wildfires dataset involved removal of missing values, invalid entries and a lot of preprocessing.
+Land cover data layer was preprocessed in QGIS, where its resolution was downsampled from 30 meters to 1 kilometer by getting the most frequent land cover category from the source dataset. By spatial intersection of wildfires' starting points and land cover raster, we got the csv file containing land cover category per incident.
+
+---
+## EDA
+During EDA, we've made sure to explore our data well enough to figure out any patterns. In general, wildfires data we worked with has a lot of variance and it's hard to detect any patterns apart. This is probably why modeling was challenging as well
+
+### Variance of fire data
+![Scatter Plot](public/visuals/wildfire_all_size_vs_duration.png)
+  
+### Seasonality of precipitation and fires:
+![Scatter Plot](public/visuals/fire_rain_snow.png)
+
+### Most burned vegetation types:
+![Scatter Plot](public/visuals/landcover_most_burned.png)
+
+----
+## Conclusion & Recommendation
+We utilized dozens of different machine learning models with extensive parameters tuning...
+
+----
+## Conclusion & Recommendation
+We utilized dozens of different machine learning models with extensive parameters tuning...
+
+---
+## Data Dictionary
+
 | Features                | Data Types | Description                                                                                                                                                                                                                                                                                                         |
 | :---------------------- | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | T2M                     | float64    | The average air (dry bulb) temperature at 2 meters above the surface of the earth.                                                                                                                                                                                                                                  |
@@ -105,76 +129,23 @@ Using only the reported initial location of a wildfire, can we use the historica
 | POOState                | object     | The State alpha code identifying the state or equivalent entity at point of origin.                                                                                                                                                                                                                                 |
 | UniqueFireIdentifier    | object     | Unique identifier assigned to each wildland fire.  yyyy = calendar year, SSUUUU = POO protecting unit identifier (5 or 6 characters), xxxxxx = local incident identifier (6 to 10 characters)                                                                                                                       |
 | id                      | int64      | Unique ID                                                                                                                                                                                                                                                                                                           |
-
-
----
-
-## Analysis Summary
-
-### Overall Data Analysis
-
-![](./public/visuals/fire_by_year.png)
-![](./public/visuals/big_fire_by_year.png)
-> Dataset we have mainly includes fire datasets from 3 years and 2022 when amount of fires has peaked between these years. Next I want to see what it looks like per month
-
-
-![](./public/visuals/fire_by_month.png)
-![](./public/visuals/big_fire_by_month.png)
-> Charts show highest peak is between april and september. Next is interesting to look at which day of the week has most fires accrued for peak months
-
-
-![](./public/visuals/peak_fire_by_weekday.png)
-![](./public/visuals/peak_big_fire_by_weekday.png)
-> Chart shows that fires started regardless of day of the week. Next is interesting to look at what caused the fire during peak fire months
-
-![](./public/visuals/peak_fire_cause_by_weekday.png)
-![](./public/visuals/peak_big_fire_by_weekday.png)
-> Natural cause of fire dominates during weekday and human cause peaks during weekend which makes sense since more people go camping and increase the risk
-
-![](./public/visuals/slow_fire_by_weekday.png)
-![](./public/visuals/slow_big_fire_by_weekday.png)
-> During slow fire season natural causes dominates across the board. Next it is interesting to find what is common conditions for peak fire.
-
-![](./public/visuals/fire_by_state_per_weekday.png)
-![](./public/visuals/big_fire_by_state_per_weekday.png)
-> New Mexico and California are leading for having the most wildfires. However Utah is leading for number of big wildfires 
-
-
-![](./public/visuals/fire_max_temp_by_state.png)
-![](./public/visuals/big_fire_max_temp_by_state.png)
-> Temperature does not show any correlation with wildfires by itself
-
-![](./public/visuals/fire_humidity_by_state.png)
-![](./public/visuals/big_fire_humidity_by_state.png)
-> Humidity showed more impact on condition of fuel moisture and creates better environment for fire to catch on
-
-
-![](./public/visuals/fire_wind_speed_by_state.png)
-![](./public/visuals/big_fire_wind_speed_by_state.png)
-> Wind helps wildfire to spread is flatter elevations
-
-
-![](./public/visuals/fire_rain_by_state.png)
-![](./public/visuals/big_fire_rain_by_state.png)
-> It’s highly possible when Arizona started having more rain, it directly caused number of wildfires when it was peaking during May
-
-![](./public/visuals/fire_time_control_by_state.png)
-![](./public/visuals/big_fire_time_control_by_state.png)
-> Even if Utah had a lot of wildfires, the response time to contain wildfire was impressive
-
-
-![](./public/visuals/fire_acres_by_state.png)
-![](./public/visuals/big_fire_acres_by_state.png)
-> Oregon had 354 reported wildfires during peak months but had highest acres lost to fire
-
-
-![](./public/visuals/wildfire_all_locations.png)
-![](./public/visuals/wildfire_all_size_vs_duration.png)
-
-
-![](./public/visuals/wildfire_filtered_locations.png)
-![](./public/visuals/wildfire_filtered_size_vs_duration.png)
-
-----
-## Conclusion & Recommendation
-Based on the wide variety of analysis conducted, it was challenging to build a model that could predict how much acre of land would burn during wildfire event. Since most of the caused by human during weather that creates perfect condition for wildfire to take a place and nature itself causing it close to unpredictable
+| Count                      | int64      | Number of pixels with particular value                                                                                                                                                                                                                                                                                                            |
+| Value                      | int64      | Unique value of land cover zone                                                                                                                                                                                                                                                                                                            |
+| RED                      | float64      | Red channel of given pixel                                                                                                                                                                                                                                                                                                            |
+| GREEN                      | float64      | Green channel of given pixel                                                                                                                                                                                                                                                                                                            |
+| BLUE                      | float64      | Blue channel of given pixel                                                                                                                                                                                                                                                                                                           |
+| CL                      | int64      | Code: Class                                                                                                                                                                                                                                                                                                           |
+| NVC_CLASS                      | object      | Class: dominant general growth forms adapted to basic moisture, temperature, and/or substrate or aquatic                                                                                                                                                                                                                                                                                                            |
+| SC                      | object      | Code: Subclass                                                                                                                                                                                                                                                                                                           |
+| NVC_SUBCL                      | object      |  Subclass: global macroclimatic factors driven primarily by latitide and continental postion, or reflect overriding substrate or  aquatic condtions                                                                                                                                                                                                                                                                                                            |
+| FRM                      | object      | Code: Formation                                                                                                                                                                                                                                                                                                           |
+| NVC_FORM                      | object      |  Formation: global macroclimatic conditions as modified by altitide, seasonality of precipitation, substrates, hydrological conditions                                                                                                                                                                                                                                                                                                            |
+| DIV                      | object      | Code: Division                                                                                                                                                                                                                                                                                                           |
+| NVC_DIV                      | object      | Division:  continental differences in mesoclimate, geology, substrates, hydrology, disturbance regimes                                                                                                                                                                                                                                                                                                            |
+| MACRO_CD                      | object      | Code: Macrogroup                                                                                                                                                                                                                                                                                                            |
+| NVC_MACRO                      | object      | Macrogroup: sub-continental to regional differences in mesoclimate, geology, substrates, hydrology, disturbance regimes                                                                                                                                                                                                                                                                                                            |
+| GR                      | object      | Code: Group                                                                                                                                                                                                                                                                                                           |
+| NVC_GROUP                      | object      | Group: regional differences in mesoclimate, geology, substrates, hydrology, disturbance regimes                                                                                                                                                                                                                                                                                                            |
+| LEVEL3                       | int64      | Code: Level                                                                                                                                                                                                                                                                                                            |
+| ECOLSYS_LU                      | object      |  Level description                                                                                                                                                                                                                                                                                                           |
+| NVCMES                       | object      |  Code of the sublevel                                                                                                                                                                                                                                                                                                            |
