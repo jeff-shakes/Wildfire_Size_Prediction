@@ -1,21 +1,34 @@
 # Project 4: Wildfire Acreage Prediction
 
 ## Table of Contents
-* 00_collect_data
-  * landcover_data_collection
-  * meteorology_data_collection_api_meteostat
-  * meteorology_data_collection_api_POWER
-  * wildfire_data_collection
-* 01_cleaning_eda
-  * 01.1_wildfires_cleaning
-  * 01.2_meteorology_cleaning
-  * 01.3_basic_EDA
-  * 01.4_extended_EDA
-* 02_processing
-  * 02.1_meteorology_historical_preprocessing
-  * 02.2_merging_data
-* 03_modeling
-  * ...
+* data
+  * cleaned
+  * processed
+  * raw
+* public
+  * images
+  * presentation
+  * visuals
+* src
+  * 00_collect_data
+    * landcover_data_collection
+    * meteorology_data_collection_api_meteostat
+    * meteorology_data_collection_api_POWER
+    * wildfire_data_collection
+  * 01_cleaning_eda
+    * 01.1_wildfires_cleaning
+    * 01.2_meteorology_cleaning
+    * 01.3_basic_EDA
+    * 01.4_extended_EDA
+  * 02_processing
+    * 02.1_meteorology_historical_preprocessing
+    * 02.2_merging_data
+  * 03_modeling
+    * 03_01_modeling(allfires)
+    * 03_02_modeling(largefires)
+    * 03_03_advanced_modeling
+    * 03_04_NN_Modeling
+  
 
 ---
 ## Problem Statement
@@ -80,9 +93,9 @@ Next we utilitzed dozens of different machine learning models with extensive par
 
 The two best models were a stacked ensemble model with a RandomForest Regression, Adaboost Regression, and Lasso Regression as the base estimators and a Linear Regression as the final estimator--all carried out on the dataset without the categorical feature. That model resulted in scores of:  
 
-|RMSE|Training R-Squared|Testing R-Squared|
-| :-: | :-: | :-:|
-| 62.05 | 0.126 | 0.205 |
+| RMSE  | Training R-Squared | Testing R-Squared |
+| :---: | :----------------: | :---------------: |
+| 62.05 |       0.126        |       0.205       |
 
 Interestingly, the next closest model was a simple linear regression carried out on the same train/test set.  
 
@@ -170,23 +183,23 @@ Also, it would be worth investigating modeling/predicting daily fire growth rath
 | POOState                | object     | The State alpha code identifying the state or equivalent entity at point of origin.                                                                                                                                                                                                                                 |
 | UniqueFireIdentifier    | object     | Unique identifier assigned to each wildland fire.  yyyy = calendar year, SSUUUU = POO protecting unit identifier (5 or 6 characters), xxxxxx = local incident identifier (6 to 10 characters)                                                                                                                       |
 | id                      | int64      | Unique ID                                                                                                                                                                                                                                                                                                           |
-| Count                      | int64      | Number of pixels with particular value                                                                                                                                                                                                                                                                                                            |
-| Value                      | int64      | Unique value of land cover zone                                                                                                                                                                                                                                                                                                            |
-| RED                      | float64      | Red channel of given pixel                                                                                                                                                                                                                                                                                                            |
-| GREEN                      | float64      | Green channel of given pixel                                                                                                                                                                                                                                                                                                            |
-| BLUE                      | float64      | Blue channel of given pixel                                                                                                                                                                                                                                                                                                           |
-| CL                      | int64      | Code: Class                                                                                                                                                                                                                                                                                                           |
-| NVC_CLASS                      | object      | Class: dominant general growth forms adapted to basic moisture, temperature, and/or substrate or aquatic                                                                                                                                                                                                                                                                                                            |
-| SC                      | object      | Code: Subclass                                                                                                                                                                                                                                                                                                           |
-| NVC_SUBCL                      | object      |  Subclass: global macroclimatic factors driven primarily by latitide and continental postion, or reflect overriding substrate or  aquatic condtions                                                                                                                                                                                                                                                                                                            |
-| FRM                      | object      | Code: Formation                                                                                                                                                                                                                                                                                                           |
-| NVC_FORM                      | object      |  Formation: global macroclimatic conditions as modified by altitide, seasonality of precipitation, substrates, hydrological conditions                                                                                                                                                                                                                                                                                                            |
-| DIV                      | object      | Code: Division                                                                                                                                                                                                                                                                                                           |
-| NVC_DIV                      | object      | Division:  continental differences in mesoclimate, geology, substrates, hydrology, disturbance regimes                                                                                                                                                                                                                                                                                                            |
-| MACRO_CD                      | object      | Code: Macrogroup                                                                                                                                                                                                                                                                                                            |
-| NVC_MACRO                      | object      | Macrogroup: sub-continental to regional differences in mesoclimate, geology, substrates, hydrology, disturbance regimes                                                                                                                                                                                                                                                                                                            |
-| GR                      | object      | Code: Group                                                                                                                                                                                                                                                                                                           |
-| NVC_GROUP                      | object      | Group: regional differences in mesoclimate, geology, substrates, hydrology, disturbance regimes                                                                                                                                                                                                                                                                                                            |
-| LEVEL3                       | int64      | Code: Level                                                                                                                                                                                                                                                                                                            |
-| ECOLSYS_LU                      | object      |  Level description                                                                                                                                                                                                                                                                                                           |
-| NVCMES                       | object      |  Code of the sublevel                                                                                                                                                                                                                                                                                                            |
+| Count                   | int64      | Number of pixels with particular value                                                                                                                                                                                                                                                                              |
+| Value                   | int64      | Unique value of land cover zone                                                                                                                                                                                                                                                                                     |
+| RED                     | float64    | Red channel of given pixel                                                                                                                                                                                                                                                                                          |
+| GREEN                   | float64    | Green channel of given pixel                                                                                                                                                                                                                                                                                        |
+| BLUE                    | float64    | Blue channel of given pixel                                                                                                                                                                                                                                                                                         |
+| CL                      | int64      | Code: Class                                                                                                                                                                                                                                                                                                         |
+| NVC_CLASS               | object     | Class: dominant general growth forms adapted to basic moisture, temperature, and/or substrate or aquatic                                                                                                                                                                                                            |
+| SC                      | object     | Code: Subclass                                                                                                                                                                                                                                                                                                      |
+| NVC_SUBCL               | object     | Subclass: global macroclimatic factors driven primarily by latitide and continental postion, or reflect overriding substrate or  aquatic condtions                                                                                                                                                                  |
+| FRM                     | object     | Code: Formation                                                                                                                                                                                                                                                                                                     |
+| NVC_FORM                | object     | Formation: global macroclimatic conditions as modified by altitide, seasonality of precipitation, substrates, hydrological conditions                                                                                                                                                                               |
+| DIV                     | object     | Code: Division                                                                                                                                                                                                                                                                                                      |
+| NVC_DIV                 | object     | Division:  continental differences in mesoclimate, geology, substrates, hydrology, disturbance regimes                                                                                                                                                                                                              |
+| MACRO_CD                | object     | Code: Macrogroup                                                                                                                                                                                                                                                                                                    |
+| NVC_MACRO               | object     | Macrogroup: sub-continental to regional differences in mesoclimate, geology, substrates, hydrology, disturbance regimes                                                                                                                                                                                             |
+| GR                      | object     | Code: Group                                                                                                                                                                                                                                                                                                         |
+| NVC_GROUP               | object     | Group: regional differences in mesoclimate, geology, substrates, hydrology, disturbance regimes                                                                                                                                                                                                                     |
+| LEVEL3                  | int64      | Code: Level                                                                                                                                                                                                                                                                                                         |
+| ECOLSYS_LU              | object     | Level description                                                                                                                                                                                                                                                                                                   |
+| NVCMES                  | object     | Code of the sublevel                                                                                                                                                                                                                                                                                                |
