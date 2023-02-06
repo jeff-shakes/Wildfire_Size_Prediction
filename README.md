@@ -177,3 +177,4 @@ Using only the reported initial location of a wildfire, can we use the historica
 
 ----
 ## Conclusion & Recommendation
+Based on the wide variety of analysis conducted, it was challenging to build a model that could predict how much acre of land would burn during wildfire event. Since most of the caused by human during weather that creates perfect condition for wildfire to take a place and nature itself causing it close to unpredictable
