@@ -1,8 +1,8 @@
-# Project 1: Reddit: Web API & NLP
+# Project 4: Wild Fire Analysis
 
 
 ## Table of Contents
-- [Project 1: Reddit: Web API \& NLP](#project-1-reddit-web-api--nlp)
+- [Project 4: Wild Fire Analysis](#project-4-wild-fire-analysis)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Problem-Statement](#problem-statement)
@@ -113,10 +113,65 @@ Data Analysis has been conducted using following libraries:
 
 ### Overall Data Analysis
 
-![Price Distribution](./presentation/charts/models_performance.png)
-Model `performance` comparison to determine which model should be picked for modeling
+![](./public/visuals/fire_by_year.png)
+![](./public/visuals/big_fire_by_year.png)
+> Dataset we have mainly includes fire datasets from 3 years and 2022 when amount of fires has peaked between these years. Next I want to see what it looks like per month
 
 
+![](./public/visuals/fire_by_month.png)
+![](./public/visuals/big_fire_by_month.png)
+> Charts show highest peak is between april and september. Next is interesting to look at which day of the week has most fires accrued for peak months
+
+
+![](./public/visuals/peak_fire_by_weekday.png)
+![](./public/visuals/peak_big_fire_by_weekday.png)
+> Chart shows that fires started regardless of day of the week. Next is interesting to look at what caused the fire during peak fire months
+
+![](./public/visuals/peak_fire_cause_by_weekday.png)
+![](./public/visuals/peak_big_fire_by_weekday.png)
+> Natural cause of fire dominates during weekday and human cause peaks during weekend which makes sense since more people go camping and increase the risk
+
+![](./public/visuals/slow_fire_by_weekday.png)
+![](./public/visuals/slow_big_fire_by_weekday.png)
+> During slow fire season natural causes dominates across the board. Next it is interesting to find what is common conditions for peak fire.
+
+![](./public/visuals/fire_by_state_per_weekday.png)
+![](./public/visuals/big_fire_by_state_per_weekday.png)
+
+![](./public/visuals/fire_max_temp_by_state.png)
+![](./public/visuals/big_fire_max_temp_by_state.png)
+
+
+![](./public/visuals/fire_humidity_by_state.png)
+![](./public/visuals/big_fire_humidity_by_state.png)
+
+
+![](./public/visuals/fire_wind_speed_by_state.png)
+![](./public/visuals/big_fire_wind_speed_by_state.png)
+
+
+![](./public/visuals/fire_rain_by_state.png)
+![](./public/visuals/big_fire_rain_by_state.png)
+
+
+![](./public/visuals/fire_snow_rain_by_state.png)
+![](./public/visuals/big_fire_snow_rain_by_state.png)
+
+
+![](./public/visuals/fire_time_control_by_state.png)
+![](./public/visuals/big_fire_time_control_by_state.png)
+
+
+![](./public/visuals/fire_acres_by_state.png)
+![](./public/visuals/big_fire_acres_by_state.png)
+
+
+![](./public/visuals/wildfire_all_locations.png)
+![](./public/visuals/wildfire_all_size_vs_duration.png)
+
+
+![](./public/visuals/wildfire_filtered_locations.png)
+![](./public/visuals/wildfire_filtered_size_vs_duration.png)
 
 ----
 ## Conclusion & Recommendation
