@@ -52,7 +52,7 @@ Data Analysis has been conducted using following libraries:
 
 
 ## Problem-Statement
-
+Using only the reported initial location of a wildfire, can we use the historical and present weather and land data to predict the total acres burned? 
 
 ## Datasets
 | Features                | Data Types | Description                                                                                                                                                                                                                                                                                                         |
