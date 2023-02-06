@@ -137,33 +137,35 @@ Using only the reported initial location of a wildfire, can we use the historica
 
 ![](./public/visuals/fire_by_state_per_weekday.png)
 ![](./public/visuals/big_fire_by_state_per_weekday.png)
+> New Mexico and California are leading for having the most wildfires. However Utah is leading for number of big wildfires 
+
 
 ![](./public/visuals/fire_max_temp_by_state.png)
 ![](./public/visuals/big_fire_max_temp_by_state.png)
-
+> Temperature does not show any correlation with wildfires by itself
 
 ![](./public/visuals/fire_humidity_by_state.png)
 ![](./public/visuals/big_fire_humidity_by_state.png)
+> Humidity showed more impact on condition of fuel moisture and creates better environment for fire to catch on
 
 
 ![](./public/visuals/fire_wind_speed_by_state.png)
 ![](./public/visuals/big_fire_wind_speed_by_state.png)
+> Wind helps wildfire to spread is flatter elevations
 
 
 ![](./public/visuals/fire_rain_by_state.png)
 ![](./public/visuals/big_fire_rain_by_state.png)
-
-
-![](./public/visuals/fire_snow_rain_by_state.png)
-![](./public/visuals/big_fire_snow_rain_by_state.png)
-
+> It’s highly possible when Arizona started having more rain, it directly caused number of wildfires when it was peaking during May
 
 ![](./public/visuals/fire_time_control_by_state.png)
 ![](./public/visuals/big_fire_time_control_by_state.png)
+> Even if Utah had a lot of wildfires, the response time to contain wildfire was impressive
 
 
 ![](./public/visuals/fire_acres_by_state.png)
 ![](./public/visuals/big_fire_acres_by_state.png)
+> Oregon had 354 reported wildfires during peak months but had highest acres lost to fire
 
 
 ![](./public/visuals/wildfire_all_locations.png)
