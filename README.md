@@ -69,14 +69,55 @@ During EDA, we've made sure to explore our data well enough to figure out any pa
 ![Scatter Plot](public/visuals/landcover_most_burned.png)
 
 ----
-## Conclusion & Recommendation
-We utilized dozens of different machine learning models with extensive parameters tuning...
+## Modeling
+Initially we investigated modeling for the data on all fires, as well as fires filtered to over an acre and lasting longer than 24 hours. The best of those initial models had RMSE values around 6000 acres.  
+
+Next we utilitzed dozens of different machine learning models with extensive parameter tuning on four different train/test sets derived from the filtered fires but with outliers removed. Those train/test sets inlcuded:
+- dataset without the categorical feature (landcover_class)
+- dataset with the categorical feature dummied
+- dataset with the categorical feature dummied but transformed by PCA (to eliminate dimensionality)
+- dataset without the categorical feature but transformed by Polynomial Features and then transformed by PCA (to investigate any compounding features but also reduce dimensionality)
+
+The two best models were a stacked ensemble model with a RandomForest Regression, Adaboost Regression, and Lasso Regression as the base estimators and a Linear Regression as the final estimator--all carried out on the dataset without the categorical feature. That model resulted in scores of:  
+
+|RMSE|Training R-Squared|Testing R-Squared|
+| :-: | :-: | :-:|
+| 62.05 | 0.126 | 0.205 |
+
+Interestingly, the next closest model was a simple linear regression carried out on the same train/test set.  
+
+Next, we generated predictions from the test set and compared to true values for post-model analysis. It seems our model could not predict values under 16.65 acres. Given that the majority of the fires used in the final data were below 15 acres (median was 10.60 acres), this model's inability to correctly predict small fires is the biggest cause of the remaining error inherent in this prediction model. Moreover, the mean our prediction-errors was around 1.96 acres. The over-predictions were averaged with the under-prediction of 338.2 acres in the most extreme case.   
+     
+### Distribution of True and Predicted Values:
+![Histogram](public/visuals/True_vs_Preds.png)
+     
+
+Investigating the coefficients from the linear regression (2nd best model) showed the biggest factors it used was wind speed and surface soil wetness (5cm below). These findings makes sense within the context of our investigation. However, it was interesting present rain or past precipiation didn't affect the model as much as the other features.
+
 
 ----
 ## Conclusion & Recommendation
-We utilized dozens of different machine learning models with extensive parameters tuning...
 
----
+Based on the wide variety of analysis conducted, we've concluded it is challenging to build a model that could predict how many acres would burn during a wildfire event. There clearly are many factors that can cause a wildfire to spread and burn more than others. For instance, certain terrain such as the desert is dry and arid, yet there usually is not enough vegetation and biomass to spread and cause massive fires. Furthermore, since the direct cause of a fire starting is often by humans and often during a time perfect for wildfires, correctly predicting the size of the resulting fire is nearly impossible with just the initial location.
+
+----
+
+## Future Research
+
+For future investigations, the model could potentially be better at predicting the size of the resulting fire by incorporating:
+     
+- Accurate Slope Data
+- Geography - Human Elements such as roads which would allow quicker human intervention
+- Geography - Natural Elements such as lakes, rivers, and steep mountains; giving a native boundary for the fire
+- Narrowing the parameters for the investigation (i.e. - An area with only a certain vegetation coverage)
+
+Also, it would be worth investigating modeling/predicting daily fire growth rather than total acres burned. This would allow the incorporation of weather data through the fire (i.e.- the second day might be extremely windy, allowing the fire to spread rapidly. This case would not have been accurately represented by our models in this study).
+
+
+----
+
+
+
 ## Data Dictionary
 
 | Features                | Data Types | Description                                                                                                                                                                                                                                                                                                         |
