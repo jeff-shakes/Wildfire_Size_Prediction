@@ -35,6 +35,10 @@
 Using only the reported initial location of a wildfire, can we use the historical and present meteorological data and land cover zoning data to predict the total acres burned? What variability of predicted wildfire acreage could be explained by only meteorological data and vegetation type?
 
 ---
+## Audience
+This investigation was carried out at the request(hypothetical) of the Wildland Fire Interagency GeoSpacial Services (WFIGS) working with many agencies such as CalFire as a part of a larger investigation looking to more accurately deploy resources - both financial and personnel -- in order to better combat the spread of wildfires once initiated.
+
+---
 ## Python Libraries
 Following python libraried were used during the project:
   - `pandas`
